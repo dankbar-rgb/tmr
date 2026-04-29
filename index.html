@@ -475,6 +475,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         function checkAnswer(choice) {
             const data = quizData[currentIdx];
+            if (!sessionStorage.getItem('tt_conversion_submitted')) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'SubmitForm' // 요청하신 이벤트 코드
+            });
+            // 중복 방지를 위해 세션 스토리지에 기록 저장
+            sessionStorage.setItem('tt_conversion_submitted', 'true');
+            }
+            }
             const isCorrect = choice === data.answer;
             const desc = document.getElementById('feedback-desc');
             
@@ -564,15 +573,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             }
 
             resultDesc.innerText = msg;
-            if (!sessionStorage.getItem('tiktok_conversion_sent')) {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-            'event': 'tiktok_conversion',
-            'event_code': 'SubmitForm'
-            });
-            // 세션 저장소에 기록하여 브라우저 탭을 닫기 전까지 재발송 방지
-            sessionStorage.setItem('tiktok_conversion_sent', 'true');
-            }
         }
 
         function updateLives() {
