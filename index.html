@@ -474,6 +474,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         }
 
         function checkAnswer(choice) {
+            if (!sessionStorage.getItem('tt_submit_conversion')) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+            'event': 'tiktok_conversion',
+            'event_name': 'SubmitForm',
+            'conversion_status': 'unique'
+            });
+            sessionStorage.setItem('tt_submit_conversion', 'true');
+            }
             const data = quizData[currentIdx];
             const isCorrect = choice === data.answer;
             const desc = document.getElementById('feedback-desc');
